@@ -18,16 +18,6 @@ void	ft_list(t_info *info)
 	i = 0;
 	while (i < info->dirs)
 	{
-/*		dr = opendir(info->ndirs[i]);
-		if (dr == NULL)
-		{
-			printf("ls: cannot access '%s': No such file or directory\n", info->ndirs[i]);
-			return ;
-		}
-		ft_show(dr, info);
-		i++;
-		printf("\n");
-		closedir(dr);*/
 		ft_rec(info->ndirs[i]);
 		i++;
 	}
@@ -48,35 +38,25 @@ void	ft_rec(char *path)
 			printf("%s\t", de->d_name);
 	}
 	printf("\n\n");
-	rewinddir(dr);
+	closedir(dr);
+	dr = opendir(path);
 	while ((de = readdir(dr)) != NULL)
 	{
 		if (de->d_name[0] != '.')
-			ft_rec(de->d_name);
+			ft_rec(ft_createpath(path, de->d_name));
 	}
 	closedir(dr);
 }
 
 char	*ft_createpath(char *path, char *new_path)
 {
-	char *result;
+	char	*result;
 
+	result = (char*)malloc(sizeof(char) * (strlen(path) + strlen(new_path) + 2));
 	strcpy(result, path);
-	strcat(result, "/");
 	strcat(result, new_path);
 	return (result);
 }
-
-/*void	ft_show(DIR *dr, t_info *info)
-{
-	struct dirent *de;
-
-	while ((de = readdir(dr)) != NULL)
-	{
-		if (de->d_name[0] != '.')
-			printf("%s\t", de->d_name);
-	}
-}*/
 
 int		main(int argc, char *argv[])
 {
