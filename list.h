@@ -42,4 +42,8 @@ void		ft_list(t_info *info);
 
 void		ft_show(DIR *dr, t_info *info);
 
+void		ft_rec(char *path);
+
+char		*ft_createpath(char *path, char *new_path);
+
 #endif

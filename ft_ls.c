@@ -18,7 +18,7 @@ void	ft_list(t_info *info)
 	i = 0;
 	while (i < info->dirs)
 	{
-		dr = opendir(info->ndirs[i]);
+/*		dr = opendir(info->ndirs[i]);
 		if (dr == NULL)
 		{
 			printf("ls: cannot access '%s': No such file or directory\n", info->ndirs[i]);
@@ -27,11 +27,47 @@ void	ft_list(t_info *info)
 		ft_show(dr, info);
 		i++;
 		printf("\n");
-		closedir(dr);
+		closedir(dr);*/
+		ft_rec(info->ndirs[i]);
+		i++;
 	}
 }
 
-void	ft_show(DIR *dr, t_info *info)
+void	ft_rec(char *path)
+{
+	DIR *dr;
+	struct dirent *de;
+
+	dr = opendir(path);
+	if (dr == NULL)
+		return ;
+	printf("------[%s]------\n", path);
+	while ((de = readdir(dr)) != NULL)
+	{
+		if (de->d_name[0] != '.')
+			printf("%s\t", de->d_name);
+	}
+	printf("\n\n");
+	rewinddir(dr);
+	while ((de = readdir(dr)) != NULL)
+	{
+		if (de->d_name[0] != '.')
+			ft_rec(de->d_name);
+	}
+	closedir(dr);
+}
+
+char	*ft_createpath(char *path, char *new_path)
+{
+	char *result;
+
+	strcpy(result, path);
+	strcat(result, "/");
+	strcat(result, new_path);
+	return (result);
+}
+
+/*void	ft_show(DIR *dr, t_info *info)
 {
 	struct dirent *de;
 
@@ -40,7 +76,7 @@ void	ft_show(DIR *dr, t_info *info)
 		if (de->d_name[0] != '.')
 			printf("%s\t", de->d_name);
 	}
-}
+}*/
 
 int		main(int argc, char *argv[])
 {
