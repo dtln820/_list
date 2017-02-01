@@ -7,6 +7,10 @@
 # include <errno.h>
 # include <stdio.h>
 # include <string.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <pwd.h>
+# include <grp.h>
 
 typedef struct		s_list
 {
@@ -51,12 +55,14 @@ void		ft_list(t_info *info);
 
 void		ft_show(DIR *dr, t_info *info);
 
-void		ft_rec(char *path);
+void		ft_rec(char *path, t_opt *options);
 
 char		*ft_createpath(char *path, char *new_path);
 
 t_opt		*ft_options(t_info *info);
 
-void		ft_simple(char *path);
+void		ft_simple(char *path, t_opt *options);
+
+void		ft_pwrite(struct dirent *de, t_opt *options);
 
 #endif
