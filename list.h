@@ -22,6 +22,15 @@ typedef struct		s_info
 	char			*nflags;
 }					t_info;
 
+typedef struct		s_opt
+{
+	int				lon;
+	int				rec;
+	int				rev;
+	int				hid;
+	int				tim;
+}					t_opt;
+
 t_info		*ft_info(int argc, char *argv[]);
 
 char		*get_flags(int argc, char *argv[], int *nflags);
@@ -45,5 +54,9 @@ void		ft_show(DIR *dr, t_info *info);
 void		ft_rec(char *path);
 
 char		*ft_createpath(char *path, char *new_path);
+
+t_opt		*ft_options(t_info *info);
+
+void		ft_simple(char *path);
 
 #endif

@@ -12,34 +12,86 @@ t_info	*ft_info(int argc, char *argv[])
 
 void	ft_list(t_info *info)
 {
-	DIR *dr;
-	int i;
+	DIR		*dr;
+	int		i;
+	t_opt	*options;
 
+	options = ft_options(info);
 	i = 0;
 	while (i < info->dirs)
 	{
-		ft_rec(info->ndirs[i]);
+		if (options->rec == 1)
+			ft_rec(info->ndirs[i]);
+		else
+		{
+			if (info->dirs > 1)
+				printf("%s:\n", info->ndirs[i]);
+			ft_simple(info->ndirs[i]);
+		}
 		i++;
+		if (i < info->dirs)
+			printf("\n");
 	}
 }
 
-void	ft_rec(char *path)
+void	ft_simple(char *path)
 {
 	DIR *dr;
 	struct dirent *de;
-
+	
 	dr = opendir(path);
-	if (dr == NULL)
-		return ;
-	printf("------[%s]------\n", path);
 	while ((de = readdir(dr)) != NULL)
 	{
 		if (de->d_name[0] != '.')
 			printf("%s\t", de->d_name);
 	}
-	printf("\n\n");
+	printf("\n");
+	closedir(dr);
+}
+
+t_opt	*ft_options(t_info *info)
+{
+	int		i;
+	t_opt	*result;
+	
+	result = (t_opt*)malloc(sizeof(t_opt));
+	i = 0;
+	while (i < info->flags)
+	{
+		if (info->nflags[i] == 'l')
+			result->lon = 1;
+		else if (info->nflags[i] == 'R')
+			result->rec = 1;
+		else if (info->nflags[i] == 'r')
+			result->rev = 1;
+		else if (info->nflags[i] == 'a')
+			result->hid = 1;
+		else if (info->nflags[i] == 't')
+			result->tim = 1;
+		i++;
+	}
+	return (result);
+}
+
+void	ft_rec(char *path)
+{
+	DIR				*dr;
+	struct dirent	*de;
+
+	dr = opendir(path);
+	if (dr == NULL)
+		return ;
+	printf("%s:\n", path);
+	while ((de = readdir(dr)) != NULL)
+	{
+		if (de->d_name[0] != '.')
+			printf("%s\t", de->d_name);
+	}
+	printf("\n");
 	closedir(dr);
 	dr = opendir(path);
+	if (dr != NULL)
+		printf("\n");
 	while ((de = readdir(dr)) != NULL)
 	{
 		if (de->d_name[0] != '.')
