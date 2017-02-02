@@ -48,7 +48,7 @@ void	ft_simple(char *path, t_opt *options)
 	{
 		if (folders[i][0] != '.' && options->hid != 1)
 			ft_pwrite(folders[i], options, ft_createpath(path, folders[i]));
-		else if (strcmp(folders[i], ".") != 0 && strcmp(folders[i], "..") != 0 && options->hid == 1)
+		else if (options->hid == 1) // strcmp(folders[i], ".") != 0 && strcmp(folders[i], "..") != 0 && 
 			ft_pwrite(folders[i], options, ft_createpath(path, folders[i]));
 		i++;
 	}
@@ -93,18 +93,11 @@ void	ft_rec(char *path, t_opt *options)
 		return ;
 	printf("%s:\n", path);
 	folders = ft_sort(dr, options);
-	/*while ((de = readdir(dr)) != NULL)
-	{
-		if (de->d_name[0] != '.' && options->hid != 1)
-			ft_pwrite(de, options, ft_createpath(path, de->d_name));
-		else if (strcmp(de->d_name, ".") != 0 && strcmp(de->d_name, "..") != 0 && options->hid == 1)
-			ft_pwrite(de, options, ft_createpath(path, de->d_name));
-	}*/
 	while (folders[i])
 	{
 		if (folders[i][0] != '.' && options->hid != 1)
 			ft_pwrite(folders[i], options, ft_createpath(path, folders[i]));
-		else if (strcmp(folders[i], ".") != 0 && strcmp(folders[i], "..") != 0 && options->hid == 1)
+		else if (options->hid == 1) // strcmp(folders[i], ".") != 0 && strcmp(folders[i], "..") != 0 && 
 			ft_pwrite(folders[i], options, ft_createpath(path, folders[i]));
 		i++;
 	}
@@ -113,13 +106,6 @@ void	ft_rec(char *path, t_opt *options)
 	dr = opendir(path);
 	if (dr != NULL)
 		printf("\n");
-	/*while ((de = readdir(dr)) != NULL)
-	{
-		if (de->d_name[0] != '.' && options->hid != 1)
-			ft_rec(ft_createpath(path, de->d_name), options);
-		else if (strcmp(de->d_name, ".") != 0 && strcmp(de->d_name, "..") != 0 && options->hid == 1)
-			ft_rec(ft_createpath(path, de->d_name), options);
-	}*/
 	i = 0;
 	while (folders[i])
 	{
