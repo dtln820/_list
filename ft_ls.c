@@ -1,18 +1,17 @@
 #include "list.h"
 
-t_info	*ft_info(int argc, char *argv[])
+t_info	*ft_info(char *argv[])
 {
 	t_info *result;
-	
+
 	result = (t_info*)malloc(sizeof(t_list));
-	result->nflags = get_flags(argc, argv, &result->flags);
-	result->ndirs = get_dirs(argc, argv, &result->dirs);
+	result->nflags = get_flags(argv, &result->flags);
+	result->ndirs = get_dirs(argv, &result->dirs);
 	return (result);
 }
 
 void	ft_list(t_info *info)
 {
-	DIR		*dr;
 	int		i;
 	t_opt	*options;
 
@@ -37,7 +36,6 @@ void	ft_list(t_info *info)
 void	ft_simple(char *path, t_opt *options)
 {
 	DIR *dr;
-	struct dirent *de;
 	char	**folders;
 	int		i;
 
@@ -82,10 +80,9 @@ t_opt	*ft_options(t_info *info)
 
 void	ft_rec(char *path, t_opt *options)
 {
-	DIR				*dr;
-	struct dirent	*de;
-	char			**folders;
-	int				i;
+	DIR		*dr;
+	char	**folders;
+	int		i;
 
 	i = 0;
 	dr = opendir(path);
@@ -101,7 +98,6 @@ void	ft_rec(char *path, t_opt *options)
 			ft_pwrite(folders[i], options, ft_createpath(path, folders[i]));
 		i++;
 	}
-	printf("\n");
 	closedir(dr);
 	dr = opendir(path);
 	if (dr != NULL)
@@ -141,17 +137,8 @@ void	ft_pwrite(char *name, t_opt *options, char *path)
 	grp = getgrgid(psswd->pw_gid);
 	if (options->lon == 1)
 	{
-		printf( (S_ISDIR(fileStat->st_mode)) ? "d" : "-");
-		printf( (fileStat->st_mode & S_IRUSR) ? "r" : "-");
-		printf( (fileStat->st_mode & S_IWUSR) ? "w" : "-");
-		printf( (fileStat->st_mode & S_IXUSR) ? "x" : "-");
-		printf( (fileStat->st_mode & S_IRGRP) ? "r" : "-");
-		printf( (fileStat->st_mode & S_IWGRP) ? "w" : "-");
-		printf( (fileStat->st_mode & S_IXGRP) ? "x" : "-");
-		printf( (fileStat->st_mode & S_IROTH) ? "r" : "-");
-		printf( (fileStat->st_mode & S_IWOTH) ? "w" : "-");
-		printf( (fileStat->st_mode & S_IXOTH) ? "x" : "-");
-		printf("\t%lu\t%s\t%s\t%lu\t%lu\t%s\n", fileStat->st_nlink, psswd->pw_name, grp->gr_name, fileStat->st_size, fileStat->st_mtime, name);
+		ft_privs(fileStat);
+		printf("\t%lu\t%s\t%s\t%lu\t%ld\t%s\n", fileStat->st_nlink, psswd->pw_name, grp->gr_name, fileStat->st_size, fileStat->st_mtime, name);
 	}
 	else
 		printf("%s\t", name);
@@ -163,7 +150,7 @@ int		main(int argc, char *argv[])
 	if (argc < 2)
 		info = ft_no_args();
 	else
-		info = ft_info(argc, argv);
+		info = ft_info(argv);
 	ft_list(info);
 	return (0);
 }

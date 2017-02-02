@@ -35,17 +35,17 @@ typedef struct		s_opt
 	int				tim;
 }					t_opt;
 
-t_info		*ft_info(int argc, char *argv[]);
+t_info		*ft_info(char *argv[]);
 
-char		*get_flags(int argc, char *argv[], int *nflags);
+char		*get_flags(char *argv[], int *nflags);
 
-int			nget_flags(int argc, char *argv[]);
+int			nget_flags(char *argv[]);
 
 t_info		*ft_no_args();
 
-char		**get_dirs(int argc, char *argv[], int *nrdirs);
+char		**get_dirs(char *argv[], int *nrdirs);
 
-int			nget_dirs(int argc, char *argv[]);
+int			nget_dirs(char *argv[]);
 
 size_t      ft_strlen(const char *str);
 
@@ -70,5 +70,7 @@ char		**ft_sort(DIR *dr, t_opt* options);
 char    	**ft_matsort(char **result, int x);
 
 int         ft_strcmp(const char *str1, const char *str2);
+
+void		ft_privs(struct stat *fileStat);
 
 #endif

@@ -1,14 +1,12 @@
 #include "list.h"
 
-char	**get_dirs(int argc, char *argv[], int *nrdirs)
+char	**get_dirs(char *argv[], int *nrdirs)
 {
 	char	**result;
 	int		i;
 	int		j;
-	int		contor;
-	
-	contor = 0;
-	*nrdirs = nget_dirs(argc, argv);
+
+	*nrdirs = nget_dirs(argv);
 	if (*nrdirs == 0)
 	{
 		result = (char**)malloc(sizeof(char*) * 1);
@@ -33,10 +31,9 @@ char	**get_dirs(int argc, char *argv[], int *nrdirs)
 	return (result);
 }
 
-int		nget_dirs(int argc, char *argv[])
+int		nget_dirs(char *argv[])
 {
 	int		i;
-	int		j;
 	int		nr_dirs;
 	
 	nr_dirs = 0;
@@ -50,7 +47,7 @@ int		nget_dirs(int argc, char *argv[])
 	return (nr_dirs);
 }
 
-char	*get_flags(int argc, char *argv[], int *nrflags)
+char	*get_flags(char *argv[], int *nrflags)
 {
 	int		i;
 	int		j;
@@ -58,7 +55,7 @@ char	*get_flags(int argc, char *argv[], int *nrflags)
 	char	*result;
 
 	contor = 0;
-	*nrflags = nget_flags(argc, argv);
+	*nrflags = nget_flags(argv);
 	if (*nrflags == 0)
 		return (NULL);
 	result = (char*)malloc(sizeof(char) * *nrflags);
@@ -79,7 +76,7 @@ char	*get_flags(int argc, char *argv[], int *nrflags)
 	return (result);
 }
 
-int		nget_flags(int argc, char *argv[])
+int		nget_flags(char *argv[])
 {
 	int		i;
 	int		j;
