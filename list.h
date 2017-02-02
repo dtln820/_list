@@ -63,7 +63,7 @@ t_opt		*ft_options(t_info *info);
 
 void		ft_simple(char *path, t_opt *options);
 
-void		ft_pwrite(struct dirent *de, t_opt *options, char *path);
+void		ft_pwrite(char *name, t_opt *options, char *path);
 
 char		**ft_sort(DIR *dr, t_opt* options);
 

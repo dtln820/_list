@@ -10,7 +10,8 @@ char    **ft_sort(DIR *dr, t_opt* options)
     while ((de = readdir(dr)) != NULL)
         i++;
     rewinddir(dr);
-    result = (char**)malloc(sizeof(char*) * i);
+    result = (char**)malloc(sizeof(char*) * i + 1);
+    result[i] = NULL;
     i = 0;
     while ((de = readdir(dr)) != NULL)
     {
