@@ -65,4 +65,10 @@ void		ft_simple(char *path, t_opt *options);
 
 void		ft_pwrite(struct dirent *de, t_opt *options, char *path);
 
+char		**ft_sort(DIR *dr, t_opt* options);
+
+char    	**ft_matsort(char **result, int x);
+
+int         ft_strcmp(const char *str1, const char *str2);
+
 #endif

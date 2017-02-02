@@ -38,14 +38,23 @@ void	ft_simple(char *path, t_opt *options)
 {
 	DIR *dr;
 	struct dirent *de;
+	char	**folders;
+	int		i;
 
+	i = 0;
 	dr = opendir(path);
-	while ((de = readdir(dr)) != NULL)
+	folders = ft_sort(dr, options);
+	/*while ((de = readdir(dr)) != NULL)
 	{
 		if (de->d_name[0] != '.' && options->hid != 1)
 			ft_pwrite(de, options, ft_createpath(path, de->d_name));
 		else if (strcmp(de->d_name, ".") != 0 && strcmp(de->d_name, "..") != 0 && options->hid == 1)
 			ft_pwrite(de, options, ft_createpath(path, de->d_name));
+	}*/
+	while (folders[i])
+	{
+		if (folders[i][0] != '.' && options->hid != 1)
+			ft_pwrite(de, options,)
 	}
 	printf("\n");
 	closedir(dr);
@@ -124,7 +133,6 @@ void	ft_pwrite(struct dirent *de, t_opt *options, char *path)
 	struct group *grp;
 
 	fileStat = malloc(sizeof(struct stat));
-	//stat(de->d_name, fileStat);
 	stat(path, fileStat);
 	psswd = getpwuid(fileStat->st_uid);
 	grp = getgrgid(psswd->pw_gid);
