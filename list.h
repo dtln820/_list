@@ -63,6 +63,6 @@ t_opt		*ft_options(t_info *info);
 
 void		ft_simple(char *path, t_opt *options);
 
-void		ft_pwrite(struct dirent *de, t_opt *options);
+void		ft_pwrite(struct dirent *de, t_opt *options, char *path);
 
 #endif

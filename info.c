@@ -10,7 +10,13 @@ char	**get_dirs(int argc, char *argv[], int *nrdirs)
 	contor = 0;
 	*nrdirs = nget_dirs(argc, argv);
 	if (*nrdirs == 0)
-		return NULL;
+	{
+		result = (char**)malloc(sizeof(char*) * 1);
+		result[0] = (char*)malloc(sizeof(char) * 1);
+		result[0][0] = '.';
+		*nrdirs = 1;
+		return (result);
+	}
 	result = (char**)malloc(sizeof(char*) * *nrdirs);
 	i = 1;
 	j = 0;
