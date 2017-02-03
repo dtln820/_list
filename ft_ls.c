@@ -62,7 +62,7 @@ void	ft_simple(char *path, t_opt *options)
 			ft_pwrite(folders[i], options, ft_createpath(path, folders[i]));
 		i++;
 	}
-	printf("\n");
+	printf("\n"); // FREE
 	closedir(dr);
 }
 
@@ -123,7 +123,7 @@ void	ft_rec(char *path, t_opt *options)
 			ft_rec(ft_createpath(path, folders[i]), options);
 		i++;
 	}
-	closedir(dr);
+	closedir(dr); // FREE
 }
 
 char	*ft_createpath(char *path, char *new_path)
@@ -157,7 +157,7 @@ void	ft_pwrite(char *name, t_opt *options, char *path)
 		printf("\t%lu\t%s\t%s\t%lu\t%s%s\n", fileStat->st_nlink, psswd->pw_name, grp->gr_name, fileStat->st_size, temp, name);
 	}
 	else
-		printf("%s\t", name);
+		printf("%s\t", name); // FREE
 }
 
 int		main(int argc, char *argv[])
