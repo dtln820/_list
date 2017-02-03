@@ -11,6 +11,7 @@
 # include <sys/stat.h>
 # include <pwd.h>
 # include <grp.h>
+# include <time.h>
 
 typedef struct		s_list
 {
@@ -72,5 +73,13 @@ char    	**ft_matsort(char **result, int x);
 int         ft_strcmp(const char *str1, const char *str2);
 
 void		ft_privs(struct stat *fileStat);
+
+char		**ft_revsort(char **result, int x);
+
+char		**ft_timesort(char **result, int x);
+
+int			ft_cmptime(char *first, char *second);
+
+char		**ft_timerev(char **result, int x);
 
 #endif

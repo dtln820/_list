@@ -46,7 +46,7 @@ void	ft_simple(char *path, t_opt *options)
 	{
 		if (folders[i][0] != '.' && options->hid != 1)
 			ft_pwrite(folders[i], options, ft_createpath(path, folders[i]));
-		else if (options->hid == 1) // strcmp(folders[i], ".") != 0 && strcmp(folders[i], "..") != 0 && 
+		else if (options->hid == 1) 
 			ft_pwrite(folders[i], options, ft_createpath(path, folders[i]));
 		i++;
 	}
@@ -94,7 +94,7 @@ void	ft_rec(char *path, t_opt *options)
 	{
 		if (folders[i][0] != '.' && options->hid != 1)
 			ft_pwrite(folders[i], options, ft_createpath(path, folders[i]));
-		else if (options->hid == 1) // strcmp(folders[i], ".") != 0 && strcmp(folders[i], "..") != 0 && 
+		else if (options->hid == 1)
 			ft_pwrite(folders[i], options, ft_createpath(path, folders[i]));
 		i++;
 	}
@@ -127,9 +127,10 @@ char	*ft_createpath(char *path, char *new_path)
 
 void	ft_pwrite(char *name, t_opt *options, char *path)
 {
-	struct stat *fileStat;
-	struct passwd *psswd;
-	struct group *grp;
+	struct stat		*fileStat;
+	struct passwd	*psswd;
+	struct group	*grp;
+	char			*temp;
 
 	fileStat = malloc(sizeof(struct stat));
 	stat(path, fileStat);
@@ -138,7 +139,10 @@ void	ft_pwrite(char *name, t_opt *options, char *path)
 	if (options->lon == 1)
 	{
 		ft_privs(fileStat);
-		printf("\t%lu\t%s\t%s\t%lu\t%ld\t%s\n", fileStat->st_nlink, psswd->pw_name, grp->gr_name, fileStat->st_size, fileStat->st_mtime, name);
+		temp = (char*)malloc(sizeof(char) * strlen(ctime(&fileStat->st_mtime)));
+		ft_strcpy(temp, ctime(&fileStat->st_mtime));
+		temp[strlen(temp) - 1] = '\t';
+		printf("\t%lu\t%s\t%s\t%lu\t%s%s\n", fileStat->st_nlink, psswd->pw_name, grp->gr_name, fileStat->st_size, temp, name);
 	}
 	else
 		printf("%s\t", name);
