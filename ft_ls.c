@@ -12,6 +12,7 @@ t_info	*ft_info(char *argv[])
 
 void	ft_list(t_info *info)
 {
+	DIR		*dr;
 	int		i;
 	t_opt	*options;
 
@@ -20,12 +21,23 @@ void	ft_list(t_info *info)
 	while (i < info->dirs)
 	{
 		if (options->rec == 1)
-			ft_rec(info->ndirs[i], options);
+		{
+			if (!(dr = opendir(info->ndirs[i])))
+				printf("ls: cannot access %s: No such file or directory\n", info->ndirs[i]);
+			else
+				ft_rec(info->ndirs[i], options);
+		}
 		else
 		{
-			if (info->dirs > 1)
+			if (!(dr = opendir(info->ndirs[i])))
+				printf("ls: cannot access %s: No such file or directory\n", info->ndirs[i]);
+			else if (info->dirs > 1)
+			{
 				printf("%s:\n", info->ndirs[i]);
-			ft_simple(info->ndirs[i], options);
+				ft_simple(info->ndirs[i], options);
+			}
+			else
+				ft_simple(info->ndirs[i], options);
 		}
 		i++;
 		if (i < info->dirs && options->rec != 1)
@@ -35,7 +47,7 @@ void	ft_list(t_info *info)
 
 void	ft_simple(char *path, t_opt *options)
 {
-	DIR *dr;
+	DIR		*dr;
 	char	**folders;
 	int		i;
 
