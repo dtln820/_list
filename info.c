@@ -58,7 +58,7 @@ char	*get_flags(char *argv[], int *nrflags)
 	*nrflags = nget_flags(argv);
 	if (*nrflags == 0)
 		return (NULL);
-	result = (char*)malloc(sizeof(char) * *nrflags);
+	result = (char*)malloc(sizeof(char) * (*nrflags + 1));
 	i = 0;
 	while (argv[i])
 	{

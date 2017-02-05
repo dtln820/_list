@@ -15,8 +15,9 @@ char    **ft_sort(DIR *dr, t_opt* options)
 	i = 0;
 	while ((de = readdir(dr)) != NULL)
 	{
-			result[i] = (char*)malloc(sizeof(char) * ft_strlen(de->d_name));
+			result[i] = (char*)malloc(sizeof(char) * (ft_strlen(de->d_name) + 1));
 			ft_strcpy(result[i], de->d_name);
+			result[i][ft_strlen(de->d_name)] = '\0';
 			i++;
 	}
 	if (options->rev == 1 && options->tim != 1)
@@ -152,13 +153,16 @@ char    **ft_matsort(char **result, int x)
 		{
 			if (ft_strcmp(result[j - 1], result[j]) > 0)
 			{
-				temp = (char*)malloc(sizeof(char) * ft_strlen(result[j]));
+				temp = (char*)malloc(sizeof(char) * (ft_strlen(result[j]) + 1));
 				ft_strcpy(temp, result[j]);
+				temp[ft_strlen(result[j])] = '\0';
 				free(result[j]);
-				result[j] = (char*)malloc(sizeof(char) * ft_strlen(result[j - 1]));
+				result[j] = (char*)malloc(sizeof(char) * (ft_strlen(result[j - 1]) + 1));
 				ft_strcpy(result[j], result[j - 1]);
+				result[j][ft_strlen(result[j - 1])] = '\0';
 				free(result[j - 1]);
-				result[j - 1] = (char*)malloc(sizeof(char) * ft_strlen(temp));
+				result[j - 1] = (char*)malloc(sizeof(char) * (ft_strlen(temp) + 1));
+				result[j - 1][ft_strlen(temp)] = '\0';
 				ft_strcpy(result[j - 1], temp);
 			}
 			j++;
