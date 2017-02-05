@@ -57,7 +57,7 @@ char	**ft_timerev(char **result, int x)
 			j++;
 		}
 		i++;
-	}
+	} // FREE TEMP
 	return (result);
 }
 
@@ -87,7 +87,7 @@ char	**ft_timesort(char **result, int x)
 			j++;
 		}
 		i++;
-	}
+	} // FREE TEMP
 	return (result);
 }
 
@@ -106,7 +106,7 @@ int		ft_cmptime(char *first, char *second)
 		return (-1);
 	else if (seconds > 0)
 		return (1);
-	return (0);
+	return (0); // FREE FILE1 & FILE2
 }
 
 char    **ft_revsort(char **result, int x)
@@ -135,7 +135,7 @@ char    **ft_revsort(char **result, int x)
 			j++;
 		}
 		i++;
-	}
+	} // FREE TEMP
 	return (result);
 }
 
@@ -168,6 +168,6 @@ char    **ft_matsort(char **result, int x)
 			j++;
 		}
 		i++;
-	}
+	} // FREE TEMP
 	return (result);
 }
