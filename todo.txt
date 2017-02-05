@@ -1,4 +1,3 @@
-Link ->
 Total
 Display
 Size for blocks, etc.

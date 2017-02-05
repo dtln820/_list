@@ -82,4 +82,6 @@ int			ft_cmptime(char *first, char *second);
 
 char		**ft_timerev(char **result, int x);
 
+int			ft_gettotal(char **folders, t_opt *options, char *path);
+
 #endif

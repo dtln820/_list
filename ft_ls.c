@@ -60,6 +60,8 @@ void	ft_simple(char *path, t_opt *options)
 	i = 0;
 	dr = opendir(path);
 	folders = ft_sort(dr, options);
+	if (options->lon == 1)
+		printf("total %d\n", ft_gettotal(folders, options, path));
 	while (folders[i])
 	{
 		temp = ft_createpath(path, folders[i]);
@@ -70,7 +72,6 @@ void	ft_simple(char *path, t_opt *options)
 		i++;
 		free(temp);
 	}
-	printf("\n");
 	closedir(dr);
 	free(folders);
 }
@@ -112,6 +113,8 @@ void	ft_rec(char *path, t_opt *options)
 		return ;
 	printf("%s:\n", path);
 	folders = ft_sort(dr, options);
+	if (options->lon == 1)
+		printf("total %d\n", ft_gettotal(folders, options, path));
 	while (folders[i])
 	{
 		temp = ft_createpath(path, folders[i]);
@@ -124,8 +127,6 @@ void	ft_rec(char *path, t_opt *options)
 	}
 	closedir(dr);
 	dr = opendir(path);
-	if (dr != NULL)
-		printf("\n");
 	i = 0;
 	while (folders[i])
 	{
@@ -162,8 +163,7 @@ void	ft_pwrite(char *name, t_opt *options, char *path)
 	int				x;
 	
 	fileStat = malloc(sizeof(struct stat));
-	if (lstat(path, fileStat) == -1)
-		printf("Path : %s | %s\n", path, strerror(errno));
+	lstat(path, fileStat);
 	psswd = getpwuid(fileStat->st_uid);
 	grp = getgrgid(psswd->pw_gid);
 	if (options->lon == 1)
@@ -172,19 +172,18 @@ void	ft_pwrite(char *name, t_opt *options, char *path)
 		temp = (char*)malloc(sizeof(char) * strlen(ctime(&fileStat->st_mtime)));
 		ft_strcpy(temp, ctime(&fileStat->st_mtime));
 		temp[16] = '\0';
-		printf("\t%hu\t%s\t%s\t%lld\t%s\t%s", fileStat->st_nlink, psswd->pw_name, grp->gr_name, fileStat->st_size, temp+4, name);
+		printf("\t%hu\t%s\t%s\t%lld\t%s\t%s", fileStat->st_nlink, psswd->pw_name, grp->gr_name, fileStat->st_size, temp + 4, name);
 		if (S_ISLNK(fileStat->st_mode))
 		{
 			x = readlink(path, buff, 512);
 			buff[x] = '\0';
-			printf(" -> %s\n", buff);
+			printf(" -> %s", buff);
 		}
-		else
-			printf("\n");
+		printf("\n");
 		free(temp);
 	}
 	else
-		printf("%s\t", name);
+		printf("%s\n", name);
 	free(fileStat);
 }
 

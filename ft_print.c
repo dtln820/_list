@@ -24,3 +24,30 @@ void	ft_privs(struct stat *fileStat)
 	printf( (fileStat->st_mode & S_IWOTH) ? "w" : "-");
 	printf( (fileStat->st_mode & S_IXOTH) ? "x" : "-");
 }
+
+int		ft_gettotal(char **folders, t_opt *options, char *path)
+{
+	int			result;
+	int			i;
+	struct stat	*fileStat;
+
+	fileStat = malloc(sizeof(struct stat));
+	i = 0;
+	result = 0;
+	while (folders[i])
+	{
+		if (strcmp(folders[i], ".") != 0 && strcmp(folders[i], "..") != 0 && options->hid == 1)
+		{
+			lstat(ft_createpath(path, folders[i]), fileStat);
+			result += fileStat->st_blocks;
+		}
+		else if (folders[i][0] != '.' && options->hid != 1)
+		{
+			lstat(ft_createpath(path, folders[i]), fileStat);
+			result += fileStat->st_blocks;
+		}
+		i++;
+	}
+	free(fileStat);
+	return (result / 2);
+}
