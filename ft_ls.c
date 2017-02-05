@@ -169,8 +169,8 @@ void	ft_pwrite(char *name, t_opt *options, char *path)
 		ft_privs(fileStat);
 		temp = (char*)malloc(sizeof(char) * strlen(ctime(&fileStat->st_mtime)));
 		ft_strcpy(temp, ctime(&fileStat->st_mtime));
-		temp[strlen(temp) - 1] = '\t';
-		printf("\t%hu\t%s\t%s\t%lld\t%s%s\n", fileStat->st_nlink, psswd->pw_name, grp->gr_name, fileStat->st_size, temp, name);
+		temp[16] = '\0';
+		printf("\t%hu\t%s\t%s\t%lld\t%s\t%s\n", fileStat->st_nlink, psswd->pw_name, grp->gr_name, fileStat->st_size, temp+4, name);
 		free(temp);
 	}
 	else
