@@ -53,6 +53,7 @@ char	**ft_timerev(char **result, int x)
 				free(result[j - 1]);
 				result[j - 1] = (char*)malloc(sizeof(char) * ft_strlen(temp));
 				ft_strcpy(result[j - 1], temp);
+				free(temp);
 			}
 			j++;
 		}
@@ -83,6 +84,7 @@ char	**ft_timesort(char **result, int x)
 				free(result[j - 1]);
 				result[j - 1] = (char*)malloc(sizeof(char) * ft_strlen(temp));
 				ft_strcpy(result[j - 1], temp);
+				free(temp);
 			}
 			j++;
 		}
@@ -102,6 +104,8 @@ int		ft_cmptime(char *first, char *second)
 	stat(first, file1);
 	stat(second, file2);
 	seconds = difftime(file1->st_mtime, file2->st_mtime);
+	free(file1);
+	free(file2);
 	if (seconds < 0)
 		return (-1);
 	else if (seconds > 0)
@@ -131,6 +135,7 @@ char    **ft_revsort(char **result, int x)
 				free(result[j - 1]);
 				result[j - 1] = (char*)malloc(sizeof(char) * ft_strlen(temp));
 				ft_strcpy(result[j - 1], temp);
+				free(temp);
 			}
 			j++;
 		}
@@ -164,6 +169,7 @@ char    **ft_matsort(char **result, int x)
 				result[j - 1] = (char*)malloc(sizeof(char) * (ft_strlen(temp) + 1));
 				result[j - 1][ft_strlen(temp)] = '\0';
 				ft_strcpy(result[j - 1], temp);
+				free(temp);
 			}
 			j++;
 		}
