@@ -36,7 +36,8 @@ int		ft_gettotal(char **folders, t_opt *options, char *path)
 	result = 0;
 	while (folders[i])
 	{
-		if (strcmp(folders[i], ".") != 0 && strcmp(folders[i], "..") != 0 && options->hid == 1)
+		//if (strcmp(folders[i], ".") != 0 && strcmp(folders[i], "..") != 0 && options->hid == 1)
+		if (options->hid == 1)
 		{
 			lstat(ft_createpath(path, folders[i]), fileStat);
 			result += fileStat->st_blocks;
@@ -49,5 +50,5 @@ int		ft_gettotal(char **folders, t_opt *options, char *path)
 		i++;
 	}
 	free(fileStat);
-	return (result / 2);
+	return (result);
 }
