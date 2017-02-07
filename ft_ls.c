@@ -195,5 +195,6 @@ int		main(int argc, char *argv[])
 	else
 		info = ft_info(argv);
 	ft_list(info);
+	free(info);
 	return (0);
 }

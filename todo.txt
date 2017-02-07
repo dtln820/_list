@@ -1,4 +1,3 @@
-Total
 Display
 Size for blocks, etc.
-Invalid flags && -1
+[ Invalid flags && -1 ]
