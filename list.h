@@ -34,6 +34,7 @@ typedef struct		s_opt
 	int				rev;
 	int				hid;
 	int				tim;
+	int				one;
 }					t_opt;
 
 t_info		*ft_info(char *argv[]);
@@ -83,5 +84,7 @@ int			ft_cmptime(char *first, char *second);
 char		**ft_timerev(char **result, int x);
 
 int			ft_gettotal(char **folders, t_opt *options, char *path);
+
+int			ft_veropt(t_opt *options, t_info *info);
 
 #endif

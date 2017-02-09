@@ -21,6 +21,8 @@ void	ft_list(t_info *info)
 	t_opt	*options;
 
 	options = ft_options(info);
+	if (ft_veropt(options, info) == -1)
+		return ;
 	i = 0;
 	while (i < info->dirs)
 	{
@@ -95,6 +97,8 @@ t_opt	*ft_options(t_info *info)
 			result->hid = 1;
 		else if (info->nflags[i] == 't')
 			result->tim = 1;
+		else if (info->nflags[i] == '1')
+			result->one = 1;
 		i++;
 	}
 	return (result);

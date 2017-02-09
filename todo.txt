@@ -1,3 +1,25 @@
 Display
 Size for blocks, etc.
-[ Invalid flags && -1 ]
+
+Norme:
+***ft_string.c
+! get_dirs (lines)
+
+***ft_sort.c
+! ft_sort (lines, rewinddir)
+! ft_timerev (lines)
+! ft_timesort (lines)
+! ft_cmptime (stat -> lstat?)
+! ft_revsort (lines)
+! ft_matsort (lines)
+
+***ft_ls.c
+! ft_list (lines)
+! ft_rec (lines)
+! ft_createpath (strcpy,strcat -> ft_strcpy, ft_strcat)
+! ft_pwrite (strlen -> ft_strlen, lines)
+
+***ALL
+! printf -> ft_printf
+! 5 functions per file
+
