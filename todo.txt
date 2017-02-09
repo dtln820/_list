@@ -1,5 +1,4 @@
 Display
-Size for blocks, etc.
 
 Norme:
 ***ft_string.c
@@ -22,4 +21,5 @@ Norme:
 ***ALL
 ! printf -> ft_printf
 ! 5 functions per file
+! 80 cols per line
 

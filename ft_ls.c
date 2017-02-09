@@ -176,7 +176,10 @@ void	ft_pwrite(char *name, t_opt *options, char *path)
 		temp = (char*)malloc(sizeof(char) * strlen(ctime(&fileStat->st_mtime)));
 		ft_strcpy(temp, ctime(&fileStat->st_mtime));
 		temp[16] = '\0';
-		printf("\t%hu\t%s\t%s\t%lld\t%s\t%s", fileStat->st_nlink, psswd->pw_name, grp->gr_name, fileStat->st_size, temp + 4, name);
+		if (S_ISCHR(fileStat->st_mode) || S_ISBLK(fileStat->st_mode))
+			printf("  %hu %s\t%s\t%d,   %d\t%s %s", fileStat->st_nlink, psswd->pw_name, grp->gr_name, major(fileStat->st_rdev), minor(fileStat->st_rdev), temp + 4, name);
+		else
+			printf("  %hu %s\t%s\t%lld\t%s %s", fileStat->st_nlink, psswd->pw_name, grp->gr_name, fileStat->st_size, temp + 4, name);
 		if (S_ISLNK(fileStat->st_mode))
 		{
 			x = readlink(path, buff, 512);
