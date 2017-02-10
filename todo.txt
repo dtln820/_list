@@ -1,4 +1,4 @@
-Display
+Display (Almost done, but are not necessary)
 
 Norme:
 ***ft_string.c

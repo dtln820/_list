@@ -69,7 +69,7 @@ void	ft_simple(char *path, t_opt *options)
 		temp = ft_createpath(path, folders[i]);
 		if (folders[i][0] != '.' && options->hid != 1)
 			ft_pwrite(folders[i], options, temp);
-		else if (options->hid == 1) 
+		else if (options->hid == 1)
 			ft_pwrite(folders[i], options, temp);
 		i++;
 		free(temp);
@@ -82,7 +82,7 @@ t_opt	*ft_options(t_info *info)
 {
 	int		i;
 	t_opt	*result;
-	
+
 	result = (t_opt*)malloc(sizeof(t_opt));
 	i = 0;
 	while (i < info->flags)
@@ -165,7 +165,7 @@ void	ft_pwrite(char *name, t_opt *options, char *path)
 	char			*temp;
 	char			buff[512];
 	int				x;
-	
+
 	fileStat = malloc(sizeof(struct stat));
 	lstat(path, fileStat);
 	psswd = getpwuid(fileStat->st_uid);
@@ -177,9 +177,9 @@ void	ft_pwrite(char *name, t_opt *options, char *path)
 		ft_strcpy(temp, ctime(&fileStat->st_mtime));
 		temp[16] = '\0';
 		if (S_ISCHR(fileStat->st_mode) || S_ISBLK(fileStat->st_mode))
-			printf("  %hu %s\t%s\t%d,   %d\t%s %s", fileStat->st_nlink, psswd->pw_name, grp->gr_name, major(fileStat->st_rdev), minor(fileStat->st_rdev), temp + 4, name);
+			printf("  %hu %s\t%s\t%*d,%*d %s %s", fileStat->st_nlink, psswd->pw_name, grp->gr_name, 4, major(fileStat->st_rdev), 4, minor(fileStat->st_rdev), temp + 4, name);
 		else
-			printf("  %hu %s\t%s\t%lld\t%s %s", fileStat->st_nlink, psswd->pw_name, grp->gr_name, fileStat->st_size, temp + 4, name);
+			printf("  %hu %s\t%s  %*lld %s %s", fileStat->st_nlink, psswd->pw_name, grp->gr_name, 5, fileStat->st_size, temp + 4, name);
 		if (S_ISLNK(fileStat->st_mode))
 		{
 			x = readlink(path, buff, 512);
