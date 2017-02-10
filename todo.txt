@@ -1,4 +1,5 @@
 Display (Almost done, but are not necessary)
+./ft_ls -t and ls -t | not same
 
 Norme:
 ***ft_string.c
