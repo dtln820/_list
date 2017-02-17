@@ -58,7 +58,7 @@ char	**ft_timerev(char **result, int x)
 			j++;
 		}
 		i++;
-	} // FREE TEMP
+	}
 	return (result);
 }
 
@@ -89,7 +89,7 @@ char	**ft_timesort(char **result, int x)
 			j++;
 		}
 		i++;
-	} // FREE TEMP
+	}
 	return (result);
 }
 
@@ -98,19 +98,21 @@ int		ft_cmptime(char *first, char *second)
 	struct stat	*file1;
 	struct stat	*file2;
 	double		seconds;
-	
+
 	file1 = malloc(sizeof(struct stat));
 	file2 = malloc(sizeof(struct stat));
-	stat(first, file1);
-	stat(second, file2);
+	lstat(first, file1);
+	lstat(second, file2);
 	seconds = difftime(file1->st_mtime, file2->st_mtime);
+	if (seconds == 0)
+		seconds = difftime(file1->st_mtimespec.tv_nsec, file2->st_mtimespec.tv_nsec);
 	free(file1);
 	free(file2);
 	if (seconds < 0)
 		return (-1);
 	else if (seconds > 0)
 		return (1);
-	return (0); // FREE FILE1 & FILE2
+	return (0);
 }
 
 char    **ft_revsort(char **result, int x)
@@ -118,7 +120,7 @@ char    **ft_revsort(char **result, int x)
 	int     i;
 	int     j;
 	char    *temp;
-	
+
 	i = 1;
 	while (i < x)
 	{
